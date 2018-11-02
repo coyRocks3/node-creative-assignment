@@ -1,6 +1,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: lightblue;
 }
 
 a {
@@ -23,24 +24,32 @@ a {
 #red {
   background-color: red;
 }
+
 #orange {
   background-color: orange;
 }
+
 #yellow {
   background-color: yellow;
 }
+
 #green{
   background-color: green;
 }
+
 #purple {
   background-color: purple;
 }
+
 #black {
   background-color: black;
 }
+
 #white {
   background-color: white;
 }
+
 #other {
-  
+  background: url("rainbowcolors.gif");
 }
+

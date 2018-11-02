@@ -5,6 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
 <script src="javascripts/app.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
   <meta charset="utf-8">
   <title>Favorite Color Poll!</title>
@@ -27,11 +28,40 @@
       <div id="chartContainer" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
     </center>
   </div>
+  </br>
+  </br>
+  </br>
   
-  
-
 </body>
-<script>
-  
-</script>
+  <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+  <script type="text/javascript">
+  window.onload = function () {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title:{
+        text: "Color Poll Results"
+      },
+      data: [
+
+      {
+        background: "lightblue",
+        type: "column",
+        dataPoints: [
+        { x: 1, y: 100, label: "Blue", color: "blue"},
+        { x: 2, y: 100,  label: "Red", color: "red"},
+        { x: 3, y: 100,  label: "Orange", color: "orange"},
+        { x: 4, y: 150,  label: "Yellow", color: "yellow"},
+        { x: 5, y: 50,  label: "Green", color: "green"},
+        { x: 6, y: 57, label: "Purple", color: "indigo"},
+        { x: 7, y: 121,  label: "Black", color: "black"},
+        { x: 8, y: 100,  label: "White", color: "silver"},
+        { x: 9, y: 78,  label: "Other", color: "brown"},
+        ]
+      }
+      ]
+    });
+
+    chart.render();
+  }
+  </script>
 </html>

@@ -56,7 +56,7 @@ router.post('/color', function(req, res) {
             break;
         }
     }
-    res.end(JSON.stringify(colors));
+    res.send(JSON.stringify(colors));
 }); 
 
 module.exports = router;

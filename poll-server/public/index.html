@@ -3,7 +3,7 @@
 <head>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
-<script src="javascripts/app.js"></script>
+<!--<script src="javascripts/app.js"></script>-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
@@ -34,6 +34,9 @@
   
 </body>
   <script type="text/javascript">
+  var app = window.angular.module('app', []);
+  app.controller('mainCtrl', mainCtrl);
+  
   window.onload = function () {
     var chart = new CanvasJS.Chart("chartContainer",
     {
@@ -46,15 +49,15 @@
         background: "lightblue",
         type: "column",
         dataPoints: [
-        { x: 1, y: 100, label: "Blue", color: "blue"},
-        { x: 2, y: 100,  label: "Red", color: "red"},
-        { x: 3, y: 100,  label: "Orange", color: "orange"},
-        { x: 4, y: 150,  label: "Yellow", color: "yellow"},
-        { x: 5, y: 50,  label: "Green", color: "green"},
-        { x: 6, y: 57, label: "Purple", color: "indigo"},
-        { x: 7, y: 121,  label: "Black", color: "black"},
-        { x: 8, y: 100,  label: "White", color: "silver"},
-        { x: 9, y: 78,  label: "Other", color: "brown"},
+        { x: 1, y: 0, label: "Blue", color: "blue"},
+        { x: 2, y: 0,  label: "Red", color: "red"},
+        { x: 3, y: 0,  label: "Orange", color: "orange"},
+        { x: 4, y: 0,  label: "Yellow", color: "yellow"},
+        { x: 5, y: 0,  label: "Green", color: "green"},
+        { x: 6, y: 0, label: "Purple", color: "indigo"},
+        { x: 7, y: 0,  label: "Black", color: "black"},
+        { x: 8, y: 0,  label: "White", color: "silver"},
+        { x: 9, y: 0,  label: "Other", color: "brown"},
         ]
       }
       ]
@@ -62,5 +65,55 @@
 
     chart.render();
   }
+  
+  updateVisual = function (newValues) {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title:{
+        text: "Color Poll Results"
+      },
+      data: [
+
+      {
+        background: "lightblue",
+        type: "column",
+        dataPoints: [
+        { x: 1, y: newValues[0]["voteCount"], label: "Blue", color: "blue"},
+        { x: 2, y: newValues[1]["voteCount"],  label: "Red", color: "red"},
+        { x: 3, y: newValues[2]["voteCount"],  label: "Orange", color: "orange"},
+        { x: 4, y: newValues[3]["voteCount"],  label: "Yellow", color: "yellow"},
+        { x: 5, y: newValues[4]["voteCount"],  label: "Green", color: "green"},
+        { x: 6, y: newValues[5]["voteCount"], label: "Purple", color: "indigo"},
+        { x: 7, y: newValues[6]["voteCount"],  label: "Black", color: "black"},
+        { x: 8, y: newValues[7]["voteCount"],  label: "White", color: "silver"},
+        { x: 9, y: newValues[8]["voteCount"],  label: "Other", color: "brown"},
+        ]
+      }
+      ]
+    });
+
+    chart.render();
+  }
+  
+  function mainCtrl ($scope, $http) {
+    $scope.colors = {};
+    
+    $scope.updateGraph = function(color) {
+        // Store information on server
+        var formData = {name:color};
+        console.log(formData);
+          var colorURL = 'color';
+          $http({
+             url: colorURL,
+             method: "POST",
+             data: formData
+          }).success(function(data, status, headers, config) {
+            updateVisual(data);
+          }).error(function(data, status, headers, config) {
+            console.log("Post failed");
+          });
+    }
+}
+  
   </script>
 </html>
